@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Life Metrics — A melhor forma de ter disciplina em uma vida corrida</title>
+<meta name="description" content="Desenvolvido para aumentar sua disciplina e alcançar metas pessoais, mesmo tendo uma vida corrida e sem tempo para se organizar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        'metrics-indigo': '#5B6AE8',
+        'metrics-indigo-dark': '#4A58D0',
+        'metrics-indigo-light': '#ECEEFB',
+        'metrics-indigo-mid': '#C5CAF0',
+        'metrics-green': '#d6f3a1',
+        'metrics-green-dark': '#8DC63F',
+        'metrics-lilac': '#C9B8E8',
+        'metrics-bg-soft': '#F5F5F7',
+        'metrics-dark': '#1C1C1E',
+        'metrics-dark-card': '#1F1F21',
+        'metrics-text': '#18181B',
+        'metrics-text-2': '#3F3F46',
+        'metrics-text-3': '#8E8E93',
+      }
+    }
+  }
+}
+</script>
+<style>
+* { border-color: #E4E4E7; }
+body { font-family: 'Inter', -apple-system, sans-serif; margin: 0; background: #fff; color: #18181B; }
+html { scroll-behavior: smooth; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { opacity: 0; animation: fadeUp 0.7s ease forwards; }
+.animate-fade-up-2 { animation-delay: 0.35s; }
+.animate-fade-up-3 { animation-delay: 0.5s; }
+.animate-fade-up-4 { animation-delay: 0.65s; }
+.animate-fade-up-5 { animation-delay: 0.8s; }
+.animate-fade-up-6 { animation-delay: 0.9s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="fixed top-0 left-0 right-0 z-50 px-5 md:px-8 py-4 flex items-center justify-between bg-white/85 backdrop-blur-xl border-b border-[#E4E4E7]">
+  <span class="font-semibold text-lg text-metrics-indigo tracking-tight">life metrics.</span>
+  <a href="#pricing" class="bg-[#d6f3a1] text-metrics-dark text-sm font-medium px-5 py-2.5 rounded-full hover:bg-[#c2e68a] transition-colors">Quero começar</a>
+</nav>
+
+<!-- HERO -->
+<section class="min-h-screen flex flex-col items-center justify-center px-6 pt-28 pb-20 text-center relative overflow-hidden" style="background: linear-gradient(180deg, #EEF0FD 0%, #FFFFFF 60%)">
+  <div class="absolute w-[600px] h-[600px] rounded-full top-[-100px] left-1/2 -translate-x-1/2" style="background: radial-gradient(circle, rgba(91,106,232,0.12) 0%, transparent 70%)"></div>
+  <div class="relative z-10 flex flex-col items-center">
+    <h1 class="animate-fade-up animate-fade-up-2 text-4xl md:text-6xl font-semibold leading-[1.12] tracking-tight max-w-[820px] mb-6">
+      A melhor forma de ter <span class="text-metrics-indigo">disciplina</span> em uma vida corrida.
+    </h1>
+    <p class="animate-fade-up animate-fade-up-3 text-base md:text-lg text-metrics-text-2 max-w-[560px] leading-relaxed mb-11">
+      Desenvolvido para aumentar sua disciplina e alcançar metas pessoais, mesmo tendo uma vida corrida e sem tempo para se organizar.
+    </p>
+    <div class="animate-fade-up animate-fade-up-4 w-full max-w-[900px] mb-11">
+      <img src="/images/hero-mockup.png" alt="Metrics — Dashboard e app mobile" class="w-full h-auto">
+    </div>
+    <div class="animate-fade-up animate-fade-up-5 flex gap-3 flex-wrap justify-center">
+      <a href="#method" class="border border-[#E4E4E7] text-metrics-text-2 text-base px-8 py-4 rounded-full hover:border-metrics-indigo hover:text-metrics-indigo transition-all">Ver como funciona</a>
+    </div>
+    <p class="animate-fade-up animate-fade-up-6 mt-5 text-[13px] text-metrics-text-3">Acesso direto pelo celular, computador e tablet · Cancele quando quiser</p>
+  </div>
+</section>
+
+<!-- PAIN SECTION -->
+<section class="py-14 px-6 bg-metrics-dark">
+  <div class="max-w-[1100px] mx-auto">
+    <h2 class="text-3xl md:text-5xl font-semibold tracking-tight leading-tight text-white mb-4">Você sabe o que quer.<br>O problema é o meio do caminho.</h2>
+    <p class="text-[17px] text-[#8E8E93] leading-relaxed max-w-[600px]">A culpa não é sua. Você só nunca teve um sistema feito para a sua realidade.</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[2px] mt-14 rounded-2xl overflow-hidden">
+      <div class="bg-metrics-dark-card p-7 md:p-9">
+        <span class="text-2xl mb-4 block">😮‍💨</span>
+        <h3 class="text-[15px] font-medium text-white mb-2">A energia acaba antes do dia</h3>
+        <p class="text-[15px] text-[#AEAEB2] leading-relaxed">Você sabe o que precisa fazer. Mas no fim do dia, entre trabalho, casa e família, sobra zero energia para seus planos pessoais.</p>
+      </div>
+      <div class="bg-metrics-dark-card p-7 md:p-9">
+        <span class="text-2xl mb-4 block">📓</span>
+        <h3 class="text-[15px] font-medium text-white mb-2">Nenhum app grudou de verdade</h3>
+        <p class="text-[15px] text-[#AEAEB2] leading-relaxed">Já tentou planner, caderno, Notion, Google. Cada um era complicado demais ou simplesmente não te mostrava se você estava avançando.</p>
+      </div>
+      <div class="bg-metrics-dark-card p-7 md:p-9">
+        <span class="text-2xl mb-4 block">🔁</span>
+        <h3 class="text-[15px] font-medium text-white mb-2">Segunda começa. Quinta acabou.</h3>
+        <p class="text-[15px] text-[#AEAEB2] leading-relaxed">Você começa a semana motivada, mas perde o fio. Recomeça do zero na semana seguinte e a sensação de que você nunca evolui vai aumentando.</p>
+      </div>
+      <div class="bg-metrics-dark-card p-7 md:p-9">
+        <span class="text-2xl mb-4 block">📊</span>
+        <h3 class="text-[15px] font-medium text-white mb-2">Esforço sem resultado visível</h3>
+        <p class="text-[15px] text-[#AEAEB2] leading-relaxed">Você faz coisas certas, mas não consegue enxergar o progresso. Parece que está no mesmo lugar de sempre e isso te desmotiva.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMAS DE USAR -->
+<section class="py-14 px-6 bg-white">
+  <div class="max-w-[1100px] mx-auto">
+    <h2 class="text-3xl md:text-5xl font-semibold tracking-tight leading-tight mb-3">Formas de usar</h2>
+    <p class="text-[17px] text-metrics-text-3 mb-14">O app se adapta ao seu objetivo, seja ele qual for.</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white rounded-[20px] border border-[#E4E4E7] overflow-hidden flex flex-col">
+        <div class="aspect-[9/19] bg-[#E5E5EA] rounded-t-[20px] overflow-hidden">
+          <img src="[COLE_AQUI_URL_DA_IMAGEM_FATURAR]" alt="Quero faturar R$1 milhão" class="w-full h-full object-cover object-top">
+        </div>
+        <div class="p-6 flex flex-col flex-1">
+          <h3 class="text-lg font-semibold text-metrics-text mb-3 tracking-tight">"Quero faturar R$1 milhão esse ano"</h3>
+          <p class="text-[14px] text-metrics-text-3 leading-relaxed">Camila é empreendedora e quer escalar seu negócio. Ela registra diariamente suas vendas, quantidade de postagens feitas, horas trabalhadas e prospecções realizadas. Com o Life Metrics, ela transforma metas grandes em ações mensuráveis e acompanha, dia a dia, sua evolução rumo ao resultado que quer.</p>
+        </div>
+      </div>
+      <div class="bg-white rounded-[20px] border border-[#E4E4E7] overflow-hidden flex flex-col">
+        <div class="aspect-[9/19] bg-[#E5E5EA] rounded-t-[20px] overflow-hidden">
+          <img src="[COLE_AQUI_URL_DA_IMAGEM_CONCURSO]" alt="Quero passar no concurso" class="w-full h-full object-cover object-top">
+        </div>
+        <div class="p-6 flex flex-col flex-1">
+          <h3 class="text-lg font-semibold text-metrics-text mb-3 tracking-tight">"Quero passar no concurso"</h3>
+          <p class="text-[14px] text-metrics-text-3 leading-relaxed">Pedro tem uma prova em 4 meses e precisa manter consistência nos estudos. Ele metrifica as horas estudadas por dia, a quantidade de questões resolvidas e cria metas diárias. O app mostra exatamente quantas horas ele já acumulou e quanto falta para bater sua meta mantendo o foco mesmo nos dias difíceis.</p>
+        </div>
+      </div>
+      <div class="bg-white rounded-[20px] border border-[#E4E4E7] overflow-hidden flex flex-col">
+        <div class="aspect-[9/19] bg-[#E5E5EA] rounded-t-[20px] overflow-hidden">
+          <img src="[COLE_AQUI_URL_DA_IMAGEM_EMAGRECER]" alt="Quero emagrecer 10kg" class="w-full h-full object-cover object-top">
+        </div>
+        <div class="p-6 flex flex-col flex-1">
+          <h3 class="text-lg font-semibold text-metrics-text mb-3 tracking-tight">"Quero emagrecer 10kg"</h3>
+          <p class="text-[14px] text-metrics-text-3 leading-relaxed">Ana decidiu mudar sua alimentação de vez. No Life Metrics, ela registra o que come, acompanha sua ingestão de água, marca os dias de treino concluídos e mede seu peso diariamente. Com os dados na tela, ela para de achar que "não está evoluindo" e vê, em números reais, cada pequeno avanço da sua jornada.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HARVARD / CIÊNCIA -->
+<section class="pt-14 pb-6 px-6 bg-metrics-bg-soft">
+  <div class="max-w-[1100px] mx-auto">
+    <h2 class="text-3xl md:text-5xl font-semibold tracking-tight leading-tight mb-4">A ciência por trás:</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mt-12">
+      <div>
+        <p class="text-base text-metrics-text-2 leading-relaxed mb-4">
+          <strong class="text-metrics-text font-semibold text-xl">O Princípio do Progresso: O fator mais importante para a motivação e a produtividade é progredir em um trabalho significativo, mesmo que em pequenos passos.</strong>
+        </p>
+        <p class="text-base text-metrics-text-2 leading-relaxed mb-4">Pesquisadores de Harvard analisaram mais de 12.000 registros diários de pessoas durante meses. A conclusão foi direta:</p>
+        <blockquote class="bg-white border-l-[3px] border-metrics-indigo px-7 py-6 rounded-r-xl my-7">
+          <p class="text-[17px] text-metrics-text italic leading-relaxed">"De todas as coisas que podem aumentar emoções, motivação e desempenho, a mais importante é simplesmente fazer progresso em algo significativo."</p>
+          <cite class="block mt-3 text-[13px] text-metrics-text-3 not-italic">— Teresa Amabile, Harvard Business School</cite>
+        </blockquote>
+        <p class="text-base text-metrics-text-2 leading-relaxed mb-4">Seu cérebro libera dopamina quando detecta progresso. Não quando você planeja. Não quando você tenta. Mas quando você <strong class="text-metrics-text font-medium">visualiza sua evolução</strong>.</p>
+        <p class="text-base text-metrics-text-2 leading-relaxed mb-7">Quando você não acompanha o seu progresso, você não percebe que está avançando. O cérebro não vê sentido em continuar, então você abandona.<br><br>O Metrics torna seu progresso visível todos os dias e ativa esse ciclo de constância e disciplina naturalmente.</p>
+      </div>
+      <div class="min-h-[400px] rounded-2xl overflow-hidden">
+        <img src="[COLE_AQUI_URL_DA_IMAGEM_HARVARD]" alt="Estudo de Harvard - The Progress Principle" class="w-full h-full object-cover rounded-lg">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METHOD -->
+<section id="method" class="py-14 px-6 bg-white">
+  <div class="max-w-[1100px] mx-auto">
+    <div class="mb-12">
+      <h2 class="text-3xl md:text-5xl font-semibold tracking-tight leading-tight mb-4">Simples porque foi feito<br>para a vida real.</h2>
+    </div>
+    <div class="rounded-[20px] px-6 mb-14 bg-white text-xs text-left md:px-0 py-0">
+      <p class="text-[#AEAEB2] leading-relaxed max-w-[680px] mx-auto rounded-none shadow-none border-0 text-base text-left">
+        Você escolhe o que quer metrificar. Km corridos, horas estudadas, páginas lidas, calorias, metas de trabalho — o sistema se adapta à sua vida. Pode ser 100% fitness, 100% profissional, ou tudo ao mesmo tempo. <strong class="text-white font-medium">Você decide.</strong>
+      </p>
+    </div>
+    <div class="flex flex-col gap-10">
+      <!-- Step 1 -->
+      <div>
+        <span class="font-semibold inline-block px-3.5 py-1.5 rounded-md mb-4 text-metrics-dark bg-[#e9ffc7] text-lg">"Não sei por onde começar"</span>
+        <div class="rounded-[20px] overflow-hidden border border-[#E4E4E7]">
+          <div class="bg-metrics-bg-soft p-8 md:p-10 relative">
+            <div class="absolute top-0 left-0 right-0 h-[3px] bg-metrics-indigo"></div>
+            <span class="text-[11px] font-semibold tracking-widest uppercase text-metrics-indigo mb-4 block">Etapa 01</span>
+            <h3 class="text-2xl md:text-[28px] font-semibold text-metrics-text leading-tight mb-4 tracking-tight whitespace-pre-line">Sua vida.
+Sua realidade.</h3>
+            <p class="text-[15px] text-metrics-text-3 leading-relaxed max-w-[680px]">Você responde perguntas sobre seus objetivos reais, suas dificuldades e o que importa para você. Em minutos, você cria um sistema personalizado que faz sentido para a sua vida.</p>
+            <p class="mt-5 text-sm font-medium text-metrics-indigo">→ Pronto em menos de 5 minutos</p>
+          </div>
+        </div>
+      </div>
+      <!-- Step 2 -->
+      <div>
+        <span class="font-semibold inline-block px-3.5 py-1.5 rounded-md mb-4 text-metrics-dark bg-[#e9ffc7] text-lg">"Começo tudo e não termino nada"</span>
+        <div class="rounded-[20px] overflow-hidden border border-[#E4E4E7]">
+          <div class="bg-metrics-bg-soft p-8 md:p-10 relative">
+            <div class="absolute top-0 left-0 right-0 h-[3px] bg-metrics-indigo"></div>
+            <span class="text-[11px] font-semibold tracking-widest uppercase text-metrics-indigo mb-4 block">Etapa 02</span>
+            <h3 class="text-2xl md:text-[28px] font-semibold text-metrics-text leading-tight mb-4 tracking-tight whitespace-pre-line">Rotina que
+roda sozinha.</h3>
+            <p class="text-[15px] text-metrics-text-3 leading-relaxed max-w-[680px]">Seus objetivos viram ações diárias conectadas. O sistema transforma suas metas em hábitos que cabem na sua rotina caótica.</p>
+            <p class="mt-5 text-sm font-medium text-metrics-indigo">→ Cada ação tem um propósito real</p>
+          </div>
+        </div>
+      </div>
+      <!-- Step 3 -->
+      <div>
+        <span class="font-semibold inline-block px-3.5 py-1.5 rounded-md mb-4 text-metrics-dark bg-[#e9ffc7] text-lg">"Faço esforço mas não sinto que estou evoluindo"</span>
+        <div class="rounded-[20px] overflow-hidden border border-[#E4E4E7]">
+          <div class="bg-metrics-bg-soft p-8 md:p-10 relative">
+            <div class="absolute top-0 left-0 right-0 h-[3px] bg-metrics-indigo"></div>
+            <span class="text-[11px] font-semibold tracking-widest uppercase text-metrics-indigo mb-4 block">Etapa 03</span>
+            <h3 class="text-2xl md:text-[28px] font-semibold text-metrics-text leading-tight mb-4 tracking-tight whitespace-pre-line">Resultado do seu esforço visível.</h3>
+            <p class="text-[15px] text-metrics-text-3 leading-relaxed max-w-[680px]">Gráficos, números e uma IA que analisa seus padrões e te diz exatamente onde melhorar. Quando seu cérebro vê prova de progresso, ele pede mais. É assim que a disciplina se instala não pela força, mas pela evidência.</p>
+            <p class="mt-5 text-sm font-medium text-metrics-indigo">→ A motivação nasce dos dados</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCREENSHOTS -->
+<section class="py-14 px-6 bg-metrics-bg-soft">
+  <div class="max-w-[1100px] mx-auto">
+    <div class="text-center mb-14">
+      <h2 class="text-3xl md:text-5xl font-semibold tracking-tight leading-tight mb-4">Antes de dormir, registre o seu dia<br>& planeje o próximo.</h2>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="rounded-2xl overflow-hidden bg-white shadow-sm"><img src="[COLE_AQUI_URL_SCREENSHOT_1]" alt="Tela inicial com métricas de vida" class="w-full h-auto"></div>
+      <div class="rounded-2xl overflow-hidden bg-white shadow-sm"><img src="[COLE_AQUI_URL_SCREENSHOT_2]" alt="Agenda semanal" class="w-full h-auto"></div>
+      <div class="rounded-2xl overflow-hidden bg-white shadow-sm"><img src="[COLE_AQUI_URL_SCREENSHOT_3]" alt="Controle de hábitos" class="w-full h-auto"></div>
+      <div class="rounded-2xl overflow-hidden bg-white shadow-sm"><img src="[COLE_AQUI_URL_SCREENSHOT_4]" alt="Insights com IA" class="w-full h-auto"></div>
+    </div>
+  </div>
+</section>
+
+<!-- RODA DA VIDA -->
+<section class="py-14 px-6 bg-metrics-dark">
+  <div class="max-w-[1100px] mx-auto">
+    <h2 class="text-3xl md:text-5xl font-semibold tracking-tight leading-tight mb-4 text-white">Roda da vida.</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mt-12">
+      <div>
+        <p class="text-base text-[#AEAEB2] leading-relaxed mb-4"><strong class="text-white font-medium">Uma vez por mês, você para e avalia a sua vida inteira.</strong></p>
+        <p class="text-base text-[#AEAEB2] leading-relaxed mb-4">Responda perguntas sobre cada área da sua vida e receba um gráfico visual mostrando onde você está equilibrada e o que você está abandonando sem perceber.</p>
+        <p class="text-base text-[#AEAEB2] leading-relaxed mb-4">A IA analisa tudo e entrega um relatório completo com pontos de atenção e o que você pode melhorar em cada área da vida.</p>
+        <p class="text-base text-[#AEAEB2] leading-relaxed mb-6">É a única ferramenta que te dá uma visão honesta de quem você é agora e o que precisa mudar para chegar onde quer estar.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-6">
+          <div class="bg-metrics-dark-card rounded-xl px-3.5 py-2.5 text-[13px] text-[#AEAEB2] border border-[#2C2C2E] flex items-center gap-2"><span class="w-2 h-2 rounded-full shrink-0" style="background:#34C759"></span>Saúde</div>
+          <div class="bg-metrics-dark-card rounded-xl px-3.5 py-2.5 text-[13px] text-[#AEAEB2] border border-[#2C2C2E] flex items-center gap-2"><span class="w-2 h-2 rounded-full shrink-0" style="background:#5B6AE8"></span>Profissional</div>
+          <div class="bg-metrics-dark-card rounded-xl px-3.5 py-2.5 text-[13px] text-[#AEAEB2] border border-[#2C2C2E] flex items-center gap-2"><span class="w-2 h-2 rounded-full shrink-0" style="background:#FF9500"></span>Financeiro</div>
+          <div class="bg-metrics-dark-card rounded-xl px-3.5 py-2.5 text-[13px] text-[#AEAEB2] border border-[#2C2C2E] flex items-center gap-2"><span class="w-2 h-2 rounded-full shrink-0" style="background:#AF52DE"></span>Estudos</div>
+          <div class="bg-metrics-dark-card rounded-xl px-3.5 py-2.5 text-[13px] text-[#AEAEB2] border border-[#2C2C2E] flex items-center gap-2"><span class="w-2 h-2 rounded-full shrink-0" style="background:#FF2D55"></span>Autocuidado</div>
+          <div class="bg-metrics-dark-card rounded-xl px-3.5 py-2.5 text-[13px] text-[#AEAEB2] border border-[#2C2C2E] flex items-center gap-2"><span class="w-2 h-2 rounded-full shrink-0" style="background:#5AC8FA"></span>Espiritualidade</div>
+          <div class="bg-metrics-dark-card rounded-xl px-3.5 py-2.5 text-[13px] text-[#AEAEB2] border border-[#2C2C2E] flex items-center gap-2"><span class="w-2 h-2 rounded-full shrink-0" style="background:#FFCC00"></span>Família</div>
+          <div class="bg-metrics-dark-card rounded-xl px-3.5 py-2.5 text-[13px] text-[#AEAEB2] border border-[#2C2C2E] flex items-center gap-2"><span class="w-2 h-2 rounded-full shrink-0" style="background:#FF6482"></span>Relacionamentos</div>
+        </div>
+      </div>
+      <div class="flex flex-col gap-3">
+        <div class="bg-metrics-dark-card rounded-2xl overflow-hidden"><img src="[COLE_AQUI_URL_DA_IMAGEM_RODA_RADAR]" alt="Gráfico radar da Roda da Vida" class="w-full h-auto rounded-2xl"></div>
+        <div class="bg-metrics-dark-card rounded-2xl overflow-hidden"><img src="[COLE_AQUI_URL_DA_IMAGEM_RODA_ANALISE]" alt="Análise de IA da Roda da Vida" class="w-full h-auto rounded-2xl"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="py-14 px-6 bg-white">
+  <div class="max-w-[1100px] mx-auto">
+    <h2 class="text-3xl md:text-5xl font-semibold tracking-tight leading-tight mb-4">Tudo que você precisa.<br>Nada que te distrai.</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-14">
+      <div class="bg-metrics-bg-soft rounded-2xl p-6 border border-[#E4E4E7] hover:border-metrics-indigo-mid hover:shadow-lg transition-all">
+        <div class="w-11 h-11 bg-metrics-indigo-light rounded-xl flex items-center justify-center text-xl mb-4">🎯</div>
+        <h3 class="text-[15px] font-semibold mb-2">Metas de vida por categoria</h3>
+        <p class="text-[13px] text-metrics-text-3 leading-relaxed">Saúde, finanças, carreira, relacionamentos... Cada meta com prazo, progresso e recompensa. Tudo conectado ao seu objetivo maior.</p>
+      </div>
+      <div class="bg-metrics-bg-soft rounded-2xl p-6 border border-[#E4E4E7] hover:border-metrics-indigo-mid hover:shadow-lg transition-all">
+        <div class="w-11 h-11 bg-metrics-indigo-light rounded-xl flex items-center justify-center text-xl mb-4">📊</div>
+        <h3 class="text-[15px] font-semibold mb-2">Métricas do jeito que você quiser</h3>
+        <p class="text-[13px] text-metrics-text-3 leading-relaxed">Km corridos, horas de estudo, calorias, páginas lidas. Você escolhe como medir, o app transforma em dados reais de progresso.</p>
+      </div>
+      <div class="bg-metrics-bg-soft rounded-2xl p-6 border border-[#E4E4E7] hover:border-metrics-indigo-mid hover:shadow-lg transition-all">
+        <div class="w-11 h-11 bg-metrics-indigo-light rounded-xl flex items-center justify-center text-xl mb-4">📅</div>
+        <h3 class="text-[15px] font-semibold mb-2">Agenda do dia inteligente</h3>
+        <p class="text-[13px] text-metrics-text-3 leading-relaxed">Descubra para onde vai sua atenção. Cada tarefa é feita conectada a uma meta ou a uma área da vida.</p>
+      </div>
+      <div class="bg-metrics-bg-soft rounded-2xl p-6 border border-[#E4E4E7] hover:border-metrics-indigo-mid hover:shadow-lg transition-all">
+        <div class="w-11 h-11 bg-metrics-indigo-light rounded-xl flex items-center justify-center text-xl mb-4">🍽️</div>
+        <h3 class="text-[15px] font-semibold mb-2">Registro de alimentação</h3>
+        <p class="text-[13px] text-metrics-text-3 leading-relaxed">Refeições, calorias e macros organizados por dia. Para quem quer acompanhar a evolução física com clareza.</p>
+      </div>
+      <div class="bg-metrics-bg-soft rounded-2xl p-6 border border-[#E4E4E7] hover:border-metrics-indigo-mid hover:shadow-lg transition-all">
+        <div class="w-11 h-11 bg-metrics-indigo-light rounded-xl flex items-center justify-center text-xl mb-4">🔔</div>
+        <h3 class="text-[15px] font-semibold mb-2">Alertas de prazo</h3>
+        <p class="text-[13px] text-metrics-text-3 leading-relaxed">Nada passa despercebido, compromissos e metas não são esquecidos.</p>
+      </div>
+      <div class="bg-metrics-bg-soft rounded-2xl p-6 border border-[#E4E4E7] hover:border-metrics-indigo-mid hover:shadow-lg transition-all">
+        <div class="w-11 h-11 bg-metrics-indigo-light rounded-xl flex items-center justify-center text-xl mb-4">🏆</div>
+        <h3 class="text-[15px] font-semibold mb-2">Sistema de recompensas</h3>
+        <p class="text-[13px] text-metrics-text-3 leading-relaxed">Você define o que ganha ao concluir cada meta. O app guarda e te lembra de se celebrar porque reconhecer progresso sustenta a constância.</p>
+      </div>
+      <div class="bg-metrics-bg-soft rounded-2xl p-6 border border-[#E4E4E7] hover:border-metrics-indigo-mid hover:shadow-lg transition-all">
+        <div class="w-11 h-11 bg-metrics-indigo-light rounded-xl flex items-center justify-center text-xl mb-4">🤖</div>
+        <h3 class="text-[15px] font-semibold mb-2">Análise e direcionamento com IA</h3>
+        <p class="text-[13px] text-metrics-text-3 leading-relaxed">Analisa seus padrões, identifica onde você está falhando e te diz exatamente como melhorar. Direcionamento personalizados com base nos seus resultados, feito com i.a.</p>
+      </div>
+      <div class="bg-metrics-bg-soft rounded-2xl p-6 border border-[#E4E4E7] hover:border-metrics-indigo-mid hover:shadow-lg transition-all">
+        <div class="w-11 h-11 bg-metrics-indigo-light rounded-xl flex items-center justify-center text-xl mb-4">⚡</div>
+        <h3 class="text-[15px] font-semibold mb-2">Pronto em menos de 3 minutos</h3>
+        <p class="text-[13px] text-metrics-text-3 leading-relaxed">O quiz inicial configura tudo para você. Sem horas de setup, sem planilha complicada. Você entra e já começa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHECKLIST -->
+<section class="py-14 px-6 bg-metrics-dark">
+  <div class="max-w-[1100px] mx-auto">
+    <h2 class="text-3xl md:text-5xl font-semibold tracking-tight leading-tight text-white mb-4">Marque esse checklist para saber<br>se serve para você:</h2>
+    <p class="text-[17px] text-[#8E8E93] leading-relaxed max-w-[600px]">Se você responder sim para a maioria, o Life Metrics foi feito para você.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-12">
+      <div class="group bg-metrics-dark-card rounded-xl px-5 py-5 flex items-start gap-3.5 border border-[#2C2C2E] hover:border-metrics-indigo transition-colors">
+        <div class="w-6 h-6 rounded-full border-2 border-[#48484A] shrink-0 mt-0.5 flex items-center justify-center group-hover:border-[#d6f3a1] group-hover:bg-[#d6f3a1] transition-all"><span class="hidden group-hover:block text-xs text-metrics-dark font-semibold">✓</span></div>
+        <p class="text-[15px] text-[#C7C7CC] leading-relaxed">Sua vida é corrida com trabalho, casa, família e você sente que nunca sobra tempo para seus planos pessoais?</p>
+      </div>
+      <div class="group bg-metrics-dark-card rounded-xl px-5 py-5 flex items-start gap-3.5 border border-[#2C2C2E] hover:border-metrics-indigo transition-colors">
+        <div class="w-6 h-6 rounded-full border-2 border-[#48484A] shrink-0 mt-0.5 flex items-center justify-center group-hover:border-[#d6f3a1] group-hover:bg-[#d6f3a1] transition-all"><span class="hidden group-hover:block text-xs text-metrics-dark font-semibold">✓</span></div>
+        <p class="text-[15px] text-[#C7C7CC] leading-relaxed">Você faz esforço todos os dias mas não consegue enxergar se está avançando?</p>
+      </div>
+      <div class="group bg-metrics-dark-card rounded-xl px-5 py-5 flex items-start gap-3.5 border border-[#2C2C2E] hover:border-metrics-indigo transition-colors">
+        <div class="w-6 h-6 rounded-full border-2 border-[#48484A] shrink-0 mt-0.5 flex items-center justify-center group-hover:border-[#d6f3a1] group-hover:bg-[#d6f3a1] transition-all"><span class="hidden group-hover:block text-xs text-metrics-dark font-semibold">✓</span></div>
+        <p class="text-[15px] text-[#C7C7CC] leading-relaxed">Você tem metas claras na cabeça, aprender idioma, mudar de carreira, emagrecer, que ficam eternamente para "quando der"?</p>
+      </div>
+      <div class="group bg-metrics-dark-card rounded-xl px-5 py-5 flex items-start gap-3.5 border border-[#2C2C2E] hover:border-metrics-indigo transition-colors">
+        <div class="w-6 h-6 rounded-full border-2 border-[#48484A] shrink-0 mt-0.5 flex items-center justify-center group-hover:border-[#d6f3a1] group-hover:bg-[#d6f3a1] transition-all"><span class="hidden group-hover:block text-xs text-metrics-dark font-semibold">✓</span></div>
+        <p class="text-[15px] text-[#C7C7CC] leading-relaxed">Você quer metrificar o que importa, km corridos, horas de estudo, calorias e ver tudo em um lugar só?</p>
+      </div>
+      <div class="group bg-metrics-dark-card rounded-xl px-5 py-5 flex items-start gap-3.5 border border-[#2C2C2E] hover:border-metrics-indigo transition-colors">
+        <div class="w-6 h-6 rounded-full border-2 border-[#48484A] shrink-0 mt-0.5 flex items-center justify-center group-hover:border-[#d6f3a1] group-hover:bg-[#d6f3a1] transition-all"><span class="hidden group-hover:block text-xs text-metrics-dark font-semibold">✓</span></div>
+        <p class="text-[15px] text-[#C7C7CC] leading-relaxed">Você se organiza pelo celular e quer uma ferramenta que funcione sem planilha, sem Notion, sem complicação?</p>
+      </div>
+      <div class="group bg-metrics-dark-card rounded-xl px-5 py-5 flex items-start gap-3.5 border border-[#2C2C2E] hover:border-metrics-indigo transition-colors">
+        <div class="w-6 h-6 rounded-full border-2 border-[#48484A] shrink-0 mt-0.5 flex items-center justify-center group-hover:border-[#d6f3a1] group-hover:bg-[#d6f3a1] transition-all"><span class="hidden group-hover:block text-xs text-metrics-dark font-semibold">✓</span></div>
+        <p class="text-[15px] text-[#C7C7CC] leading-relaxed">Você já tentou outros apps e nenhum funcionou porque eram complexos demais ou não foram feitos para a sua realidade?</p>
+      </div>
+    </div>
+    <div class="mt-10 bg-[#141414] rounded-2xl px-8 py-7 border border-[#5c5c5c]">
+      <h4 class="text-[11px] font-semibold tracking-widest uppercase mb-3 text-[#8f8f8f]">QUANDO O METRICS NÃO É PARA VOCÊ</h4>
+      <p class="text-sm leading-relaxed text-[#8f8f8f]">Se você precisa de um app de gestão de projetos para times, software financeiro avançado ou CRM profissional, o Metrics não é isso. Ele é um sistema pessoal de acompanhamento de progresso e evolução individual.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section class="py-14 px-6 bg-metrics-bg-soft">
+  <div class="max-w-[1100px] mx-auto">
+    <h2 class="text-3xl md:text-5xl font-semibold tracking-tight leading-tight mb-4">Qual a diferença do Life Metrics<br>para outros apps?</h2>
+    <div class="mt-12 rounded-2xl overflow-hidden border border-[#E4E4E7]">
+      <table class="w-full border-collapse">
+        <thead>
+          <tr class="bg-metrics-dark">
+            <th class="p-4 md:px-6 text-left text-[13px] font-medium tracking-widest uppercase text-[#8E8E93] bg-metrics-dark-card">O que você precisa</th>
+            <th class="p-4 md:px-6 text-center text-[13px] font-medium tracking-widest uppercase text-[#8E8E93] bg-[#2C2C2E]">Apps comuns</th>
+            <th class="p-4 md:px-6 text-center text-[13px] font-medium tracking-widest uppercase text-white bg-metrics-indigo">Metrics</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="px-4 md:px-6 py-4 border-t border-[#E4E4E7] text-sm text-metrics-text-2">Sem anúncios insistentes enquanto você usa o app</td><td class="px-4 md:px-6 py-4 border-t border-[#E4E4E7] text-center text-lg bg-[#FAFAFA]">❌</td><td class="px-4 md:px-6 py-4 border-t border-[#E4E4E7] text-center text-lg bg-metrics-indigo-light">✅</td></tr>
+          <tr><td class="px-4 md:px-6 py-4 border-t border-[#E4E4E7] text-sm text-metrics-text-2">Hábitos + metas + agenda em um só lugar</td><td class="px-4 md:px-6 py-4 border-t border-[#E4E4E7] text-center text-lg bg-[#FAFAFA]">❌</td><td class="px-4 md:px-6 py-4 border-t border-[#E4E4E7] text-center text-lg bg-metrics-indigo-light">✅</td></tr>
+          <tr><td class="px-4 md:px-6 py-4 border-t border-[#E4E4E7] text-sm text-metrics-text-2">Métricas reais do seu progresso em todas as áreas da vida</td><td class="px-4 md:px-6 py-4 border-t border-[#E4E4E7] text-center text-lg bg-[#FAFAFA]">❌</td><td class="px-4 md:px-6 py-4 border-t border-[#E4E4E7] text-center text-lg bg-metrics-indigo-light">✅</td></tr>
+          <tr><td class="px-4 md:px-6 py-4 border-t border-[#E4E4E7] text-sm text-metrics-text-2">Feito para pessoas com agenda corrida</td><td class="px-4 md:px-6 py-4 border-t border-[#E4E4E7] text-center text-lg bg-[#FAFAFA]">❌</td><td class="px-4 md:px-6 py-4 border-t border-[#E4E4E7] text-center text-lg bg-metrics-indigo-light">✅</td></tr>
+          <tr><td class="px-4 md:px-6 py-4 border-t border-[#E4E4E7] text-sm text-metrics-text-2">Roda da Vida com análise de IA</td><td class="px-4 md:px-6 py-4 border-t border-[#E4E4E7] text-center text-lg bg-[#FAFAFA]">❌</td><td class="px-4 md:px-6 py-4 border-t border-[#E4E4E7] text-center text-lg bg-metrics-indigo-light">✅</td></tr>
+          <tr><td class="px-4 md:px-6 py-4 border-t border-[#E4E4E7] text-sm text-metrics-text-2">Sistema de recompensas pessoais</td><td class="px-4 md:px-6 py-4 border-t border-[#E4E4E7] text-center text-lg bg-[#FAFAFA]">❌</td><td class="px-4 md:px-6 py-4 border-t border-[#E4E4E7] text-center text-lg bg-metrics-indigo-light">✅</td></tr>
+          <tr><td class="px-4 md:px-6 py-4 border-t border-[#E4E4E7] text-sm text-metrics-text-2">Análise e direcionamento com IA</td><td class="px-4 md:px-6 py-4 border-t border-[#E4E4E7] text-center text-lg bg-[#FAFAFA]">❌</td><td class="px-4 md:px-6 py-4 border-t border-[#E4E4E7] text-center text-lg bg-metrics-indigo-light">✅</td></tr>
+          <tr><td class="px-4 md:px-6 py-4 border-t border-[#E4E4E7] text-sm text-metrics-text-2">Configuração e uso em menos de 5 minutos</td><td class="px-4 md:px-6 py-4 border-t border-[#E4E4E7] text-center text-lg bg-[#FAFAFA]">❌</td><td class="px-4 md:px-6 py-4 border-t border-[#E4E4E7] text-center text-lg bg-metrics-indigo-light">✅</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="py-14 px-6 bg-white text-center">
+  <div class="max-w-[1100px] mx-auto">
+    <h2 class="text-3xl md:text-5xl font-semibold tracking-tight leading-tight mb-4">Escolha como quer começar.</h2>
+    <p class="text-[17px] text-metrics-text-3">Sem pegadinha. Cancele quando quiser.</p>
+    <div class="flex flex-col md:flex-row justify-center gap-6 items-stretch mt-14">
+      <!-- Mensal -->
+      <div class="w-full max-w-[400px] mx-auto md:mx-0 bg-metrics-dark border border-metrics-dark rounded-3xl px-9 py-10 text-left relative hover:-translate-y-1 hover:shadow-2xl transition-all">
+        <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#636366] text-white text-[11px] font-semibold tracking-wider uppercase px-4 py-1.5 rounded-full whitespace-nowrap">Mais Flexível</span>
+        <div class="text-[12px] font-semibold tracking-[0.12em] uppercase text-[#636366] mb-5">Assinatura Mensal</div>
+        <div class="text-[56px] font-semibold tracking-tighter leading-none text-white mb-1.5">R$27,90</div>
+        <div class="text-sm text-[#636366] mb-8">a cada mês</div>
+        <ul class="mb-9 space-y-0">
+          <li class="text-sm text-[#AEAEB2] py-2.5 border-b border-[#2C2C2E] flex items-center gap-2.5"><span class="text-[8px] text-metrics-indigo shrink-0">✦</span>Acesso completo ao sistema</li>
+          <li class="text-sm text-[#AEAEB2] py-2.5 border-b border-[#2C2C2E] flex items-center gap-2.5"><span class="text-[8px] text-metrics-indigo shrink-0">✦</span>Controle de hábitos e metas</li>
+          <li class="text-sm text-[#AEAEB2] py-2.5 border-b border-[#2C2C2E] flex items-center gap-2.5"><span class="text-[8px] text-metrics-indigo shrink-0">✦</span>Dashboard de métricas</li>
+          <li class="text-sm text-[#AEAEB2] py-2.5 border-b border-[#2C2C2E] flex items-center gap-2.5"><span class="text-[8px] text-metrics-indigo shrink-0">✦</span>Roda da Vida</li>
+          <li class="text-sm text-[#AEAEB2] py-2.5 border-b border-[#2C2C2E] flex items-center gap-2.5"><span class="text-[8px] text-metrics-indigo shrink-0">✦</span>Prazos e lembretes</li>
+          <li class="text-sm text-[#AEAEB2] py-2.5 border-b border-[#2C2C2E] flex items-center gap-2.5"><span class="text-[8px] text-metrics-indigo shrink-0">✦</span>Registro de alimentação</li>
+          <li class="text-sm text-[#AEAEB2] py-2.5 border-b border-[#2C2C2E] flex items-center gap-2.5"><span class="text-[8px] text-metrics-indigo shrink-0">✦</span>Análise e direcionamento com IA</li>
+        </ul>
+        <a href="#" class="block text-center w-full py-4 rounded-full bg-[#d6f3a1] text-metrics-dark text-[15px] font-medium hover:bg-[#c2e68a] transition-colors">Quero começar</a>
+      </div>
+      <!-- Trimestral -->
+      <div class="w-full max-w-[400px] mx-auto md:mx-0 bg-metrics-dark border border-metrics-dark rounded-3xl px-9 py-10 text-left relative hover:-translate-y-1 hover:shadow-2xl transition-all">
+        <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-metrics-indigo text-white text-[11px] font-semibold tracking-wider uppercase px-4 py-1.5 rounded-full whitespace-nowrap">Valor Promocional</span>
+        <div class="text-[12px] font-semibold tracking-[0.12em] uppercase text-[#636366] mb-5">Assinatura Trimestral</div>
+        <div class="text-[56px] font-semibold tracking-tighter leading-none text-white mb-1.5">R$57,90</div>
+        <div class="text-sm text-[#636366] mb-8">a cada 3 meses</div>
+        <ul class="mb-9 space-y-0">
+          <li class="text-sm text-[#AEAEB2] py-2.5 border-b border-[#2C2C2E] flex items-center gap-2.5"><span class="text-[8px] text-metrics-indigo shrink-0">✦</span>Acesso completo ao sistema</li>
+          <li class="text-sm text-[#AEAEB2] py-2.5 border-b border-[#2C2C2E] flex items-center gap-2.5"><span class="text-[8px] text-metrics-indigo shrink-0">✦</span>Controle de hábitos e metas</li>
+          <li class="text-sm text-[#AEAEB2] py-2.5 border-b border-[#2C2C2E] flex items-center gap-2.5"><span class="text-[8px] text-metrics-indigo shrink-0">✦</span>Dashboard de métricas</li>
+          <li class="text-sm text-[#AEAEB2] py-2.5 border-b border-[#2C2C2E] flex items-center gap-2.5"><span class="text-[8px] text-metrics-indigo shrink-0">✦</span>Roda da Vida</li>
+          <li class="text-sm text-[#AEAEB2] py-2.5 border-b border-[#2C2C2E] flex items-center gap-2.5"><span class="text-[8px] text-metrics-indigo shrink-0">✦</span>Prazos e lembretes</li>
+          <li class="text-sm text-[#AEAEB2] py-2.5 border-b border-[#2C2C2E] flex items-center gap-2.5"><span class="text-[8px] text-metrics-indigo shrink-0">✦</span>Registro de alimentação</li>
+          <li class="text-sm text-[#AEAEB2] py-2.5 border-b border-[#2C2C2E] flex items-center gap-2.5"><span class="text-[8px] text-metrics-indigo shrink-0">✦</span>Análise e direcionamento com IA</li>
+        </ul>
+        <a href="#" class="block text-center w-full py-4 rounded-full bg-[#d6f3a1] text-metrics-dark text-[15px] font-medium hover:bg-[#c2e68a] transition-colors">Quero começar</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="py-14 px-6 bg-metrics-bg-soft">
+  <div class="max-w-[720px] mx-auto">
+    <h2 class="text-3xl md:text-5xl font-semibold tracking-tight leading-tight mb-4">Antes de começar.</h2>
+    <div class="mt-14 space-y-0">
+      <details class="border-b border-[#E4E4E7] group">
+        <summary class="text-base font-medium text-metrics-text py-7 cursor-pointer list-none flex justify-between items-center">Precisa instalar alguma coisa?<span class="text-xl transition-transform group-open:rotate-180">▾</span></summary>
+        <p class="text-[15px] text-metrics-text-2 leading-relaxed pb-6">O Life Metrics funciona direto no navegador do seu celular: você acessa pelo link, salva na tela inicial e funciona como um app.</p>
+      </details>
+      <details class="border-b border-[#E4E4E7] group">
+        <summary class="text-base font-medium text-metrics-text py-7 cursor-pointer list-none flex justify-between items-center">Quanto tempo leva para configurar?<span class="text-xl transition-transform group-open:rotate-180">▾</span></summary>
+        <p class="text-[15px] text-metrics-text-2 leading-relaxed pb-6">Em média 5 minutos. O quiz inicial guia tudo: objetivos, hábitos, áreas da vida. Rápido porque foi pensado para quem não tem tempo a perder.</p>
+      </details>
+      <details class="border-b border-[#E4E4E7] group">
+        <summary class="text-base font-medium text-metrics-text py-7 cursor-pointer list-none flex justify-between items-center">Funciona para qualquer objetivo de vida?<span class="text-xl transition-transform group-open:rotate-180">▾</span></summary>
+        <p class="text-[15px] text-metrics-text-2 leading-relaxed pb-6">Sim. Você escolhe para que serve. Pode focar 100% na vida fitness, treinos, alimentação, evolução física. Pode focar nos projetos profissionais. Pode usar para organizar tudo ao mesmo tempo. O sistema se adapta ao que você quer medir.</p>
+      </details>
+      <details class="border-b border-[#E4E4E7] group">
+        <summary class="text-base font-medium text-metrics-text py-7 cursor-pointer list-none flex justify-between items-center">E se eu não conseguir manter a consistência?<span class="text-xl transition-transform group-open:rotate-180">▾</span></summary>
+        <p class="text-[15px] text-metrics-text-2 leading-relaxed pb-6">Esse é exatamente o ponto do Life Metrics. A IA identifica seus padrões de falha e sugere ajustes. Você pode pausar, editar ou recomeçar qualquer hábito sem culpa e sem começar do zero.</p>
+      </details>
+      <details class="border-b border-[#E4E4E7] group">
+        <summary class="text-base font-medium text-metrics-text py-7 cursor-pointer list-none flex justify-between items-center">Minhas informações ficam seguras?<span class="text-xl transition-transform group-open:rotate-180">▾</span></summary>
+        <p class="text-[15px] text-metrics-text-2 leading-relaxed pb-6">Sim. Tudo que você registra é privado e salvo com segurança. Nenhuma informação é compartilhada com terceiros.</p>
+      </details>
+      <details class="border-b border-[#E4E4E7] group">
+        <summary class="text-base font-medium text-metrics-text py-7 cursor-pointer list-none flex justify-between items-center">Posso cancelar quando quiser?<span class="text-xl transition-transform group-open:rotate-180">▾</span></summary>
+        <p class="text-[15px] text-metrics-text-2 leading-relaxed pb-6">Sim, sem burocracia. Mas depois que você começar a ver seus números crescendo semana a semana, vai ser difícil querer parar.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="py-28 px-6 bg-metrics-indigo text-center relative overflow-hidden">
+  <div class="absolute w-[500px] h-[500px] rounded-full bg-white/[0.06] -bottom-24 -right-24"></div>
+  <div class="absolute w-[300px] h-[300px] rounded-full bg-white/[0.04] -top-20 -left-14"></div>
+  <div class="relative z-10 max-w-[680px] mx-auto">
+    <h2 class="text-3xl md:text-5xl font-semibold text-white tracking-tight leading-tight mb-5">6 meses de foco absoluto<br>arruma toda a bagunça dos últimos 5 anos.</h2>
+    <p class="text-[17px] text-white/70 max-w-[480px] mx-auto mb-12">Você já sabe o que quer mudar. O Life Metrics é o sistema que vai fazer acontecer.</p>
+    <a href="#pricing" class="inline-block bg-white text-metrics-indigo text-[17px] font-medium px-12 py-4 rounded-full hover:bg-metrics-bg-soft hover:shadow-xl transition-all">Começar agora</a>
+    <p class="mt-5 text-[13px] text-white/45">Acesso imediato · Direto pelo celular · Cancele quando quiser</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-metrics-dark py-8 px-6 text-center">
+  <p class="text-[13px] text-[#48484A]">© 2026 Metrics · Seu progresso, visível.</p>
+</footer>
+
+</body>
+</html>
