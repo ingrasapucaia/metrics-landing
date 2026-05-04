@@ -774,6 +774,116 @@ body {
     padding: 48px 20px 60px;
   }
 }
+
+/* ── FEATURES TOGGLE ── */
+.features-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 20px;
+  font-family: var(--font);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--lime);
+  cursor: pointer;
+  transition: all 0.2s;
+  margin: 20px 0 0;
+}
+
+.features-toggle:hover {
+  border-color: var(--lime);
+}
+
+.toggle-arrow {
+  transition: transform 0.3s;
+}
+
+.features-toggle.open .toggle-arrow {
+  transform: rotate(180deg);
+}
+
+.features-list {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-top: 0;
+}
+
+.features-list.show {
+  max-height: 2000px;
+  margin-top: 16px;
+}
+
+.feature-block {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px 22px;
+  margin-bottom: 12px;
+}
+
+.feature-block-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+
+.feature-block p {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+.feature-block p:last-child {
+  margin-bottom: 0;
+}
+
+.feature-block ul {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+}
+
+.feature-block ul:last-child {
+  margin-bottom: 0;
+}
+
+.feature-block li {
+  font-size: 14px;
+  color: var(--text-3);
+  padding: 5px 0;
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.6;
+}
+
+.feature-block li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  font-size: 7px;
+  color: var(--lime);
+  top: 9px;
+}
+
+.product-closing {
+  font-size: 17px;
+  color: var(--text-2);
+  line-height: 1.8;
+  margin-top: 32px;
+  text-align: center;
+}
+
+.product-closing strong {
+  color: var(--text);
+}
 </style>
 </head>
 <body>
@@ -1141,9 +1251,71 @@ body {
 
   <!-- PRODUCT -->
   <div class="product-section fade-in-up delay-5">
-    <h3>O Life Metrics não é um app de hábitos.</h3>
-    <div class="product-desc">
-      É um sistema de controle da sua vida. Você coloca seus objetivos, seus hábitos, suas metas. Registra seu dia em 5 minutos. E o sistema te mostra, com dados reais, que você está evoluindo. Com inteligência artificial que analisa seus padrões e te diz onde focar.
+    <h3>O Life Metrics não é mais um app de hábitos.</h3>
+
+    <button class="features-toggle" onclick="this.classList.toggle('open'); document.getElementById('featuresList').classList.toggle('show');">
+      Ver todas as funcionalidades
+      <span class="toggle-arrow">▾</span>
+    </button>
+
+    <div class="features-list" id="featuresList">
+      <div class="feature-block">
+        <div class="feature-block-title">1. Metrificação Personalizada</div>
+        <p>Você pode rastrear seus hábitos da forma como preferir:</p>
+        <ul>
+          <li>Quilômetros corridos (dia/semana)</li>
+          <li>Páginas lidas</li>
+          <li>Horas de estudo</li>
+          <li>Horas dedicadas a um projeto específico</li>
+          <li>Calorias e alimentação</li>
+        </ul>
+        <p>A lógica é simples: quanto mais clareza sobre o esforço acumulado, maior a percepção de avanço. O app se adapta ao foco que você escolher.</p>
+      </div>
+
+      <div class="feature-block">
+        <div class="feature-block-title">2. Construção de Metas Inteligente com Plano de Ação</div>
+        <ul>
+          <li>Criação de metas claras com IA</li>
+          <li>Definição de planos de ação</li>
+          <li>Execução guiada por métricas</li>
+        </ul>
+        <p>Tudo conectado com acompanhamento contínuo.</p>
+      </div>
+
+      <div class="feature-block">
+        <div class="feature-block-title">3. Assistente com IA</div>
+        <p>O app conta com um assistente inteligente que:</p>
+        <ul>
+          <li>Analisa seus hábitos e métricas</li>
+          <li>Identifica pontos de melhoria</li>
+          <li>Sugere ajustes semanais e mensais</li>
+          <li>Te ajuda a evoluir com base em dados reais</li>
+        </ul>
+      </div>
+
+      <div class="feature-block">
+        <div class="feature-block-title">4. Sistema de Roda da Vida</div>
+        <ul>
+          <li>Avaliação de todas as áreas da sua vida</li>
+          <li>Visualização de equilíbrio e desbalanceamento</li>
+          <li>Clareza sobre onde você precisa melhorar</li>
+        </ul>
+      </div>
+
+      <div class="feature-block">
+        <div class="feature-block-title">5. Análises Periódicas</div>
+        <ul>
+          <li>Análises mensais e trimestrais</li>
+          <li>Diagnóstico completo da sua vida</li>
+          <li>Recomendações práticas de melhoria</li>
+        </ul>
+        <p>O app não só coleta dados. Ele interpreta e te direciona para o seu objetivo.</p>
+      </div>
+    </div>
+
+    <div class="product-closing">
+      Você não precisa de mais motivação, cursos ou informação.<br>
+      <strong>Você precisa de clareza, progresso visível e direção.</strong>
     </div>
   </div>
 
