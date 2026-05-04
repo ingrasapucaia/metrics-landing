@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Diagnóstico de Vida — Life Metrics</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --lime: #D6F3A1;
+  --lime-dim: rgba(214,243,161,0.15);
+  --lime-glow: rgba(214,243,161,0.3);
+  --bg: #0A0A0A;
+  --bg-card: #141414;
+  --bg-card-hover: #1a1a1a;
+  --text: #FFFFFF;
+  --text-2: #A1A1AA;
+  --text-3: #71717A;
+  --border: #27272A;
+  --border-active: #D6F3A1;
+  --danger: #EF4444;
+  --font: 'Inter', -apple-system, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── PROGRESS BAR ── */
+.progress-wrap {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: 3px;
+  background: var(--border);
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--lime);
+  width: 0%;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── QUIZ CONTAINER ── */
+.quiz-container {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 80px 24px 120px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ── INTRO SCREEN ── */
+.intro-screen {
+  text-align: center;
+  animation: fadeIn 0.8s ease;
+}
+
+.intro-logo {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--lime);
+  margin-bottom: 48px;
+}
+
+.intro-screen h1 {
+  font-size: clamp(28px, 6vw, 42px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-bottom: 20px;
+}
+
+.intro-screen h1 span {
+  color: var(--lime);
+}
+
+.intro-desc {
+  font-size: 16px;
+  color: var(--text-2);
+  line-height: 1.7;
+  max-width: 480px;
+  margin: 0 auto 48px;
+}
+
+.intro-meta {
+  font-size: 13px;
+  color: var(--text-3);
+  margin-top: 20px;
+}
+
+/* ── QUESTION SCREENS ── */
+.question-screen {
+  display: none;
+  animation: slideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.question-screen.active {
+  display: block;
+}
+
+.phase-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 12px;
+}
+
+.question-number {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--lime);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.question-number::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.question-text {
+  font-size: clamp(20px, 4.5vw, 28px);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  margin-bottom: 32px;
+}
+
+.question-hint {
+  font-size: 13px;
+  color: var(--text-3);
+  margin-bottom: 24px;
+  font-style: italic;
+}
+
+/* ── OPTIONS ── */
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.option {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 20px;
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  line-height: 1.5;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.option:hover {
+  background: var(--bg-card-hover);
+  border-color: #3f3f46;
+}
+
+.option.selected {
+  background: var(--lime-dim);
+  border-color: var(--lime);
+}
+
+.option-indicator {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.option.selected .option-indicator {
+  border-color: var(--lime);
+  background: var(--lime);
+}
+
+.option.selected .option-indicator::after {
+  content: '✓';
+  font-size: 12px;
+  color: #1a1a1a;
+  font-weight: 700;
+}
+
+/* Multi-select: square indicator */
+.multi .option-indicator {
+  border-radius: 6px;
+}
+
+.multi .option.selected .option-indicator {
+  border-radius: 6px;
+}
+
+/* Scrollable options for long lists */
+.options.scrollable {
+  max-height: 55vh;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.options.scrollable::-webkit-scrollbar {
+  width: 4px;
+}
+
+.options.scrollable::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.options.scrollable::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+
+/* ── TEXT INPUT ── */
+.text-input-wrap {
+  margin-bottom: 8px;
+}
+
+.text-input {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  font-size: 16px;
+  font-family: var(--font);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+  resize: none;
+}
+
+.text-input:focus {
+  border-color: var(--lime);
+}
+
+.text-input::placeholder {
+  color: var(--text-3);
+}
+
+.text-input-short {
+  height: 56px;
+}
+
+.text-input-medium {
+  height: 80px;
+}
+
+/* ── BUTTONS ── */
+.btn-wrap {
+  margin-top: 32px;
+  display: flex;
+  gap: 12px;
+}
+
+.btn-next {
+  flex: 1;
+  background: var(--lime);
+  color: #1a1a1a;
+  font-family: var(--font);
+  font-size: 16px;
+  font-weight: 600;
+  padding: 18px 32px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: -0.01em;
+}
+
+.btn-next:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px var(--lime-glow);
+}
+
+.btn-next:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-back {
+  background: transparent;
+  color: var(--text-3);
+  font-family: var(--font);
+  font-size: 15px;
+  font-weight: 400;
+  padding: 18px 20px;
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-back:hover {
+  border-color: var(--text-3);
+  color: var(--text-2);
+}
+
+/* ── LOADING SCREEN ── */
+.loading-screen {
+  display: none;
+  text-align: center;
+  animation: fadeIn 0.6s ease;
+}
+
+.loading-screen.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+}
+
+.loading-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 3px solid var(--border);
+  border-top-color: var(--lime);
+  animation: spin 1s linear infinite;
+  margin-bottom: 32px;
+}
+
+.loading-text {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.loading-sub {
+  font-size: 14px;
+  color: var(--text-3);
+  transition: opacity 0.4s;
+}
+
+.loading-dots::after {
+  content: '';
+  animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+  0%, 20% { content: ''; }
+  40% { content: '.'; }
+  60% { content: '..'; }
+  80%, 100% { content: '...'; }
+}
+
+/* ── RESULT PAGE ── */
+.result-page {
+  display: none;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 60px 24px 80px;
+}
+
+.result-page.active {
+  display: block;
+  animation: fadeIn 0.8s ease;
+}
+
+.result-logo {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--lime);
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.result-header {
+  font-size: clamp(28px, 6vw, 40px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  margin-bottom: 48px;
+}
+
+.result-header span {
+  color: var(--lime);
+}
+
+.diag-block {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px 28px;
+  margin-bottom: 20px;
+}
+
+.diag-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--lime);
+  margin-bottom: 16px;
+}
+
+.diag-text {
+  font-size: 16px;
+  color: var(--text-2);
+  line-height: 1.8;
+}
+
+.diag-text strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.diag-quote {
+  font-size: 17px;
+  color: var(--text);
+  font-style: italic;
+  line-height: 1.7;
+  border-left: 3px solid var(--lime);
+  padding-left: 20px;
+  margin: 16px 0 0;
+}
+
+.anchor-phrase {
+  text-align: center;
+  padding: 64px 20px;
+  margin: 20px 0;
+}
+
+.anchor-phrase h2 {
+  font-size: clamp(24px, 5.5vw, 38px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  color: var(--lime);
+}
+
+/* ── VIDEO SECTION ── */
+.video-section {
+  margin: 40px 0;
+  text-align: center;
+}
+
+.video-placeholder {
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 9/16;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.video-placeholder-icon {
+  font-size: 48px;
+  opacity: 0.3;
+}
+
+.video-placeholder-text {
+  font-size: 13px;
+  color: var(--text-3);
+}
+
+/* ── PRODUCT SECTION ── */
+.product-section {
+  margin: 48px 0;
+}
+
+.product-section h3 {
+  font-size: clamp(22px, 4.5vw, 30px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  margin-bottom: 20px;
+}
+
+.product-desc {
+  font-size: 16px;
+  color: var(--text-2);
+  line-height: 1.8;
+  margin-bottom: 32px;
+}
+
+/* ── PRICE ANCHOR ── */
+.price-anchor {
+  background: var(--lime-dim);
+  border: 1px solid rgba(214,243,161,0.2);
+  border-radius: 16px;
+  padding: 28px 24px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.price-anchor p {
+  font-size: 16px;
+  color: var(--text-2);
+  line-height: 1.7;
+}
+
+.price-anchor strong {
+  color: var(--lime);
+  font-weight: 600;
+}
+
+/* ── PRICING CARDS ── */
+.pricing-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.price-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  padding: 28px 22px;
+  position: relative;
+  transition: all 0.25s;
+}
+
+.price-card:hover {
+  border-color: #3f3f46;
+}
+
+.price-card.featured {
+  border-color: var(--lime);
+  background: linear-gradient(180deg, rgba(214,243,161,0.08) 0%, var(--bg-card) 100%);
+}
+
+.price-badge {
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--lime);
+  color: #1a1a1a;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 50px;
+  white-space: nowrap;
+}
+
+.price-plan-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 16px;
+}
+
+.price-value {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 4px;
+}
+
+.price-period {
+  font-size: 13px;
+  color: var(--text-3);
+  margin-bottom: 24px;
+}
+
+.price-features {
+  list-style: none;
+  margin-bottom: 24px;
+}
+
+.price-features li {
+  font-size: 13px;
+  color: var(--text-3);
+  padding: 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.5;
+}
+
+.price-features li::before {
+  content: '✦';
+  font-size: 7px;
+  color: var(--lime);
+  flex-shrink: 0;
+}
+
+.btn-buy {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 14px;
+  border-radius: 12px;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.btn-buy-outline {
+  border: 1.5px solid var(--border);
+  color: var(--text);
+  background: transparent;
+}
+
+.btn-buy-outline:hover {
+  border-color: var(--lime);
+  color: var(--lime);
+}
+
+.btn-buy-lime {
+  background: var(--lime);
+  color: #1a1a1a;
+  border: none;
+}
+
+.btn-buy-lime:hover {
+  box-shadow: 0 8px 24px var(--lime-glow);
+  transform: translateY(-1px);
+}
+
+/* ── GUARANTEE ── */
+.guarantee {
+  text-align: center;
+  padding: 32px 20px;
+  margin-bottom: 32px;
+}
+
+.guarantee-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.guarantee h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.guarantee p {
+  font-size: 14px;
+  color: var(--text-3);
+  line-height: 1.7;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* ── FINAL CTA ── */
+.final-cta-block {
+  text-align: center;
+  padding: 48px 20px;
+  border-top: 1px solid var(--border);
+}
+
+.final-cta-block a {
+  display: inline-block;
+  background: var(--lime);
+  color: #1a1a1a;
+  font-family: var(--font);
+  font-size: 17px;
+  font-weight: 600;
+  padding: 20px 48px;
+  border-radius: 16px;
+  text-decoration: none;
+  transition: all 0.2s;
+  letter-spacing: -0.01em;
+}
+
+.final-cta-block a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px var(--lime-glow);
+}
+
+.final-cta-note {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--text-3);
+}
+
+.footer-quiz {
+  text-align: center;
+  padding: 24px;
+  font-size: 12px;
+  color: var(--text-3);
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in-up {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+.delay-6 { animation-delay: 0.6s; }
+.delay-7 { animation-delay: 0.7s; }
+.delay-8 { animation-delay: 0.8s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 520px) {
+  .quiz-container {
+    padding: 60px 20px 100px;
+  }
+  .pricing-cards {
+    grid-template-columns: 1fr;
+  }
+  .diag-block {
+    padding: 24px 20px;
+  }
+  .result-page {
+    padding: 48px 20px 60px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-wrap">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+
+<!-- ══ INTRO ══ -->
+<div class="quiz-container" id="quizContainer">
+
+  <div class="intro-screen" id="introScreen">
+    <div class="intro-logo">life metrics</div>
+    <h1>Descubra o que está te impedindo de <span>alcançar o que você quer.</span></h1>
+    <p class="intro-desc">Um diagnóstico rápido e honesto sobre onde você está, o que te trava, e o que precisa mudar nos próximos 6 meses.</p>
+    <button class="btn-next" onclick="startQuiz()" style="max-width:320px;margin:0 auto;">Começar diagnóstico</button>
+    <p class="intro-meta">Leva menos de 3 minutos · 100% gratuito</p>
+  </div>
+
+  <!-- ══ QUESTIONS ══ -->
+
+  <!-- Q1 -->
+  <div class="question-screen" id="q1">
+    <div class="phase-label">O que você quer</div>
+    <div class="question-number">01 de 15</div>
+    <div class="question-text">O que você mais quer conquistar agora na sua vida?</div>
+    <div class="options" data-q="1" data-type="single">
+      <div class="option" data-val="Emagrecer ou transformar meu corpo">
+        <div class="option-indicator"></div>Emagrecer ou transformar meu corpo
+      </div>
+      <div class="option" data-val="Crescer profissionalmente ou faturar mais">
+        <div class="option-indicator"></div>Crescer profissionalmente ou faturar mais
+      </div>
+      <div class="option" data-val="Ter disciplina de verdade">
+        <div class="option-indicator"></div>Ter disciplina de verdade, parar de só planejar
+      </div>
+      <div class="option" data-val="Organizar todas as áreas da minha vida">
+        <div class="option-indicator"></div>Organizar todas as áreas da minha vida
+      </div>
+      <div class="option" data-val="Passar em uma prova ou concurso">
+        <div class="option-indicator"></div>Passar em uma prova ou concurso
+      </div>
+      <div class="option" data-val="Cuidar mais da minha saúde física e mental">
+        <div class="option-indicator"></div>Cuidar mais da minha saúde física e mental
+      </div>
+      <div class="option" data-val="Juntar dinheiro ou sair das dívidas">
+        <div class="option-indicator"></div>Juntar dinheiro ou sair das dívidas
+      </div>
+      <div class="option" data-val="Começar meu próprio negócio">
+        <div class="option-indicator"></div>Começar meu próprio negócio
+      </div>
+      <div class="option" data-val="Conquistar mais independência e autonomia">
+        <div class="option-indicator"></div>Conquistar mais independência e autonomia
+      </div>
+      <div class="option" data-val="Aprender algo novo (idioma, habilidade, curso)">
+        <div class="option-indicator"></div>Aprender algo novo (idioma, habilidade, curso)
+      </div>
+    </div>
+    <div class="btn-wrap">
+      <button class="btn-next" disabled onclick="nextQ(2)">Continuar</button>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="question-screen" id="q2">
+    <div class="phase-label">O que você quer</div>
+    <div class="question-number">02 de 15</div>
+    <div class="question-text">Se você pudesse mudar UMA coisa na sua vida nos próximos 6 meses, o que seria?</div>
+    <div class="text-input-wrap">
+      <input type="text" class="text-input text-input-short" id="q2input" placeholder="Escreva aqui com suas palavras..." maxlength="120" oninput="validateText(2)">
+    </div>
+    <div class="btn-wrap">
+      <button class="btn-back" onclick="prevQ(1)">Voltar</button>
+      <button class="btn-next" id="q2btn" disabled onclick="nextQ(3)">Continuar</button>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="question-screen" id="q3">
+    <div class="phase-label">O que você quer</div>
+    <div class="question-number">03 de 15</div>
+    <div class="question-text">Você sente que sabe exatamente o que precisa fazer, mas não consegue manter?</div>
+    <div class="options" data-q="3" data-type="single">
+      <div class="option" data-val="Sim, esse é o meu maior problema">
+        <div class="option-indicator"></div>Sim, esse é o meu maior problema
+      </div>
+      <div class="option" data-val="Mais ou menos, às vezes nem sei por onde começar">
+        <div class="option-indicator"></div>Mais ou menos, às vezes nem sei por onde começar
+      </div>
+      <div class="option" data-val="Não, meu problema é outro">
+        <div class="option-indicator"></div>Não, meu problema é outro
+      </div>
+    </div>
+    <div class="btn-wrap">
+      <button class="btn-back" onclick="prevQ(2)">Voltar</button>
+      <button class="btn-next" disabled onclick="nextQ(4)">Continuar</button>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="question-screen" id="q4">
+    <div class="phase-label">O padrão que se repete</div>
+    <div class="question-number">04 de 15</div>
+    <div class="question-text">Há quanto tempo você tenta mudar isso e não consegue?</div>
+    <div class="options" data-q="4" data-type="single">
+      <div class="option" data-val="Menos de 3 meses"><div class="option-indicator"></div>Menos de 3 meses</div>
+      <div class="option" data-val="3 a 6 meses"><div class="option-indicator"></div>3 a 6 meses</div>
+      <div class="option" data-val="6 meses a 1 ano"><div class="option-indicator"></div>6 meses a 1 ano</div>
+      <div class="option" data-val="Mais de 1 ano"><div class="option-indicator"></div>Mais de 1 ano</div>
+      <div class="option" data-val="Mais de 2 anos"><div class="option-indicator"></div>Mais de 2 anos</div>
+      <div class="option" data-val="Sinceramente, anos"><div class="option-indicator"></div>Sinceramente, anos</div>
+    </div>
+    <div class="btn-wrap">
+      <button class="btn-back" onclick="prevQ(3)">Voltar</button>
+      <button class="btn-next" disabled onclick="nextQ(5)">Continuar</button>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="question-screen" id="q5">
+    <div class="phase-label">O padrão que se repete</div>
+    <div class="question-number">05 de 15</div>
+    <div class="question-text">Quantas vezes você recomeçou do zero nos últimos 12 meses?</div>
+    <div class="options" data-q="5" data-type="single">
+      <div class="option" data-val="1 ou 2 vezes"><div class="option-indicator"></div>1 ou 2 vezes</div>
+      <div class="option" data-val="3 a 5 vezes"><div class="option-indicator"></div>3 a 5 vezes</div>
+      <div class="option" data-val="Mais de 5 vezes"><div class="option-indicator"></div>Mais de 5 vezes</div>
+      <div class="option" data-val="Perdi a conta"><div class="option-indicator"></div>Perdi a conta</div>
+    </div>
+    <div class="btn-wrap">
+      <button class="btn-back" onclick="prevQ(4)">Voltar</button>
+      <button class="btn-next" disabled onclick="nextQ(6)">Continuar</button>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="question-screen" id="q6">
+    <div class="phase-label">O padrão que se repete</div>
+    <div class="question-number">06 de 15</div>
+    <div class="question-text">O que acontece quando você desiste?</div>
+    <div class="question-hint">Pode marcar mais de uma</div>
+    <div class="options multi" data-q="6" data-type="multi">
+      <div class="option" data-val="Sinto culpa e frustração"><div class="option-indicator"></div>Sinto culpa e frustração</div>
+      <div class="option" data-val="Penso 'dessa vez vai ser diferente' e recomeço igual"><div class="option-indicator"></div>Penso "dessa vez vai ser diferente" e recomeço igual</div>
+      <div class="option" data-val="Paro de registrar, paro de olhar, finjo que não existe"><div class="option-indicator"></div>Paro de registrar, paro de olhar, finjo que não existe</div>
+      <div class="option" data-val="Fico com raiva de mim mesma"><div class="option-indicator"></div>Fico com raiva de mim mesma</div>
+      <div class="option" data-val="Aceito que 'eu sou assim' e desisto por um tempo"><div class="option-indicator"></div>Aceito que "eu sou assim" e desisto por um tempo</div>
+    </div>
+    <div class="btn-wrap">
+      <button class="btn-back" onclick="prevQ(5)">Voltar</button>
+      <button class="btn-next" disabled onclick="nextQ(7)">Continuar</button>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="question-screen" id="q7">
+    <div class="phase-label">O padrão que se repete</div>
+    <div class="question-number">07 de 15</div>
+    <div class="question-text">Se você for honesta consigo mesma: você está mais perto ou mais longe do que queria estar 1 ano atrás?</div>
+    <div class="options" data-q="7" data-type="single">
+      <div class="option" data-val="Mais longe"><div class="option-indicator"></div>Mais longe</div>
+      <div class="option" data-val="No mesmo lugar"><div class="option-indicator"></div>No mesmo lugar</div>
+      <div class="option" data-val="Um pouco mais perto, mas muito menos do que poderia"><div class="option-indicator"></div>Um pouco mais perto, mas muito menos do que poderia</div>
+      <div class="option" data-val="Muito mais perto"><div class="option-indicator"></div>Muito mais perto</div>
+    </div>
+    <div class="btn-wrap">
+      <button class="btn-back" onclick="prevQ(6)">Voltar</button>
+      <button class="btn-next" disabled onclick="nextQ(8)">Continuar</button>
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="question-screen" id="q8">
+    <div class="phase-label">O custo de continuar assim</div>
+    <div class="question-number">08 de 15</div>
+    <div class="question-text">Imagina que daqui a 6 meses nada tenha mudado. Você está no mesmo lugar, com os mesmos planos no papel e a mesma frustração. Como você se sentiria?</div>
+    <div class="options" data-q="8" data-type="single">
+      <div class="option" data-val="Devastada"><div class="option-indicator"></div>Devastada</div>
+      <div class="option" data-val="Frustrada, de novo"><div class="option-indicator"></div>Frustrada, de novo</div>
+      <div class="option" data-val="Conformada, já me acostumei"><div class="option-indicator"></div>Conformada, já me acostumei</div>
+      <div class="option" data-val="Não quero nem pensar nisso"><div class="option-indicator"></div>Não quero nem pensar nisso</div>
+    </div>
+    <div class="btn-wrap">
+      <button class="btn-back" onclick="prevQ(7)">Voltar</button>
+      <button class="btn-next" disabled onclick="nextQ(9)">Continuar</button>
+    </div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="question-screen" id="q9">
+    <div class="phase-label">O custo de continuar assim</div>
+    <div class="question-number">09 de 15</div>
+    <div class="question-text">Pensa no que você mais quer conquistar. Se nos últimos 6 meses você tivesse focado nisso de verdade, com consistência, onde você estaria agora?</div>
+    <div class="options" data-q="9" data-type="single">
+      <div class="option" data-val="Provavelmente já teria alcançado"><div class="option-indicator"></div>Provavelmente já teria alcançado</div>
+      <div class="option" data-val="Muito mais perto do que estou hoje"><div class="option-indicator"></div>Muito mais perto do que estou hoje</div>
+      <div class="option" data-val="Não sei, porque nunca consegui manter por 6 meses"><div class="option-indicator"></div>Não sei, porque nunca consegui manter por 6 meses</div>
+      <div class="option" data-val="Nem consigo imaginar"><div class="option-indicator"></div>Nem consigo imaginar</div>
+    </div>
+    <div class="btn-wrap">
+      <button class="btn-back" onclick="prevQ(8)">Voltar</button>
+      <button class="btn-next" disabled onclick="nextQ(10)">Continuar</button>
+    </div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="question-screen" id="q10">
+    <div class="phase-label">O custo de continuar assim</div>
+    <div class="question-number">10 de 15</div>
+    <div class="question-text">Você acredita que o problema é falta de disciplina sua, ou falta de clareza do que precisa ser feito?</div>
+    <div class="options" data-q="10" data-type="single">
+      <div class="option" data-val="Sempre achei que o problema era eu"><div class="option-indicator"></div>Sempre achei que o problema era eu</div>
+      <div class="option" data-val="Tô começando a achar que é falta de clareza"><div class="option-indicator"></div>Tô começando a achar que é falta de clareza</div>
+      <div class="option" data-val="Com certeza é falta de clareza, eu sei o que quero mas não sei como manter"><div class="option-indicator"></div>Com certeza é falta de clareza, eu sei o que quero mas não sei como manter</div>
+      <div class="option" data-val="Um pouco dos dois"><div class="option-indicator"></div>Um pouco dos dois</div>
+    </div>
+    <div class="btn-wrap">
+      <button class="btn-back" onclick="prevQ(9)">Voltar</button>
+      <button class="btn-next" disabled onclick="nextQ(11)">Continuar</button>
+    </div>
+  </div>
+
+  <!-- Q11 -->
+  <div class="question-screen" id="q11">
+    <div class="phase-label">Seu futuro</div>
+    <div class="question-number">11 de 15</div>
+    <div class="question-text">Imagina você daqui a 6 meses, tendo mantido foco no que importa. O que muda na sua vida?</div>
+    <div class="question-hint">Pode marcar quantas quiser</div>
+    <div class="options multi scrollable" data-q="11" data-type="multi">
+      <div class="option" data-val="Estou no corpo que eu quero"><div class="option-indicator"></div>Estou no corpo que eu quero</div>
+      <div class="option" data-val="Juntei dinheiro de verdade"><div class="option-indicator"></div>Juntei dinheiro de verdade</div>
+      <div class="option" data-val="Cresci na carreira ou no meu negócio"><div class="option-indicator"></div>Cresci na carreira ou no meu negócio</div>
+      <div class="option" data-val="Criei hábitos que hoje são automáticos"><div class="option-indicator"></div>Criei hábitos que hoje são automáticos</div>
+      <div class="option" data-val="Tenho orgulho de quem eu me tornei"><div class="option-indicator"></div>Tenho orgulho de quem eu me tornei</div>
+      <div class="option" data-val="Provei pra mim mesma que eu consigo"><div class="option-indicator"></div>Provei pra mim mesma que eu consigo</div>
+      <div class="option" data-val="Estou morando sozinha"><div class="option-indicator"></div>Estou morando sozinha</div>
+      <div class="option" data-val="Comprei meu primeiro imóvel (ou estou muito perto)"><div class="option-indicator"></div>Comprei meu primeiro imóvel (ou estou muito perto)</div>
+      <div class="option" data-val="Sou mais autoconfiante"><div class="option-indicator"></div>Sou mais autoconfiante</div>
+      <div class="option" data-val="Saí de um emprego que me fazia infeliz"><div class="option-indicator"></div>Saí de um emprego que me fazia infeliz</div>
+      <div class="option" data-val="Comecei o negócio que eu tanto planejava"><div class="option-indicator"></div>Comecei o negócio que eu tanto planejava</div>
+      <div class="option" data-val="Aprendi um idioma novo"><div class="option-indicator"></div>Aprendi um idioma novo</div>
+      <div class="option" data-val="Estou com minha saúde mental em dia"><div class="option-indicator"></div>Estou com minha saúde mental em dia</div>
+      <div class="option" data-val="Tenho uma rotina que funciona de verdade"><div class="option-indicator"></div>Tenho uma rotina que funciona de verdade</div>
+      <div class="option" data-val="Estou me alimentando bem sem sofrimento"><div class="option-indicator"></div>Estou me alimentando bem sem sofrimento</div>
+      <div class="option" data-val="Quitei uma dívida que me sufocava"><div class="option-indicator"></div>Quitei uma dívida que me sufocava</div>
+      <div class="option" data-val="Tirei um projeto pessoal do papel"><div class="option-indicator"></div>Tirei um projeto pessoal do papel</div>
+      <div class="option" data-val="Estou me cuidando de verdade, por dentro e por fora"><div class="option-indicator"></div>Estou me cuidando de verdade, por dentro e por fora</div>
+    </div>
+    <div class="btn-wrap">
+      <button class="btn-back" onclick="prevQ(10)">Voltar</button>
+      <button class="btn-next" disabled onclick="nextQ(12)">Continuar</button>
+    </div>
+  </div>
+
+  <!-- Q12 -->
+  <div class="question-screen" id="q12">
+    <div class="phase-label">Seu futuro</div>
+    <div class="question-number">12 de 15</div>
+    <div class="question-text">Você estaria disposta a dedicar 5 minutos por dia, antes de dormir, se isso significasse que em 6 meses você vai ter se aproximado (ou até alcançado) o que você tanto deseja?</div>
+    <div class="options" data-q="12" data-type="single">
+      <div class="option" data-val="Sim, com certeza"><div class="option-indicator"></div>Sim, com certeza</div>
+      <div class="option" data-val="Sim, se for simples"><div class="option-indicator"></div>Sim, se for simples</div>
+      <div class="option" data-val="Talvez"><div class="option-indicator"></div>Talvez</div>
+    </div>
+    <div class="btn-wrap">
+      <button class="btn-back" onclick="prevQ(11)">Voltar</button>
+      <button class="btn-next" disabled onclick="nextQ(13)">Continuar</button>
+    </div>
+  </div>
+
+  <!-- Q13 -->
+  <div class="question-screen" id="q13">
+    <div class="phase-label">Seu futuro</div>
+    <div class="question-number">13 de 15</div>
+    <div class="question-text">Se existisse um sistema que te ajudasse a controlar suas metas, seus hábitos e todas as áreas da sua vida e usasse inteligência artificial pra te dizer exatamente o que fazer para alcançar seus objetivos, quanto você acha que isso valeria por mês?</div>
+    <div class="options" data-q="13" data-type="single">
+      <div class="option" data-val="Mais de R$200"><div class="option-indicator"></div>Mais de R$200</div>
+      <div class="option" data-val="Entre R$100 e R$200"><div class="option-indicator"></div>Entre R$100 e R$200</div>
+      <div class="option" data-val="Entre R$30 e R$50"><div class="option-indicator"></div>Entre R$30 e R$50</div>
+    </div>
+    <div class="btn-wrap">
+      <button class="btn-back" onclick="prevQ(12)">Voltar</button>
+      <button class="btn-next" disabled onclick="nextQ(14)">Continuar</button>
+    </div>
+  </div>
+
+  <!-- Q14 -->
+  <div class="question-screen" id="q14">
+    <div class="phase-label">Seus dados</div>
+    <div class="question-number">14 de 15</div>
+    <div class="question-text">Qual seu primeiro nome?</div>
+    <div class="text-input-wrap">
+      <input type="text" class="text-input text-input-short" id="q14input" placeholder="Seu nome..." maxlength="40" oninput="validateText(14)" autocomplete="given-name">
+    </div>
+    <div class="btn-wrap">
+      <button class="btn-back" onclick="prevQ(13)">Voltar</button>
+      <button class="btn-next" id="q14btn" disabled onclick="nextQ(15)">Continuar</button>
+    </div>
+  </div>
+
+  <!-- Q15 -->
+  <div class="question-screen" id="q15">
+    <div class="phase-label">Seus dados</div>
+    <div class="question-number">15 de 15</div>
+    <div class="question-text">Qual seu melhor e-mail?</div>
+    <div class="question-hint">É pra lá que vai seu diagnóstico completo.</div>
+    <div class="text-input-wrap">
+      <input type="email" class="text-input text-input-short" id="q15input" placeholder="seu@email.com" oninput="validateEmail()" autocomplete="email">
+    </div>
+    <div class="btn-wrap">
+      <button class="btn-back" onclick="prevQ(14)">Voltar</button>
+      <button class="btn-next" id="q15btn" disabled onclick="submitQuiz()">Ver meu diagnóstico</button>
+    </div>
+  </div>
+
+  <!-- LOADING -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-icon"></div>
+    <div class="loading-text">Gerando seu diagnóstico<span class="loading-dots"></span></div>
+    <div class="loading-sub" id="loadingSub">Analisando suas respostas</div>
+  </div>
+
+</div>
+
+<!-- ══ RESULT PAGE ══ -->
+<div class="result-page" id="resultPage">
+  <div class="result-logo">life metrics</div>
+
+  <h1 class="result-header fade-in-up">
+    <span id="resultName">Ana</span>, esse é o seu diagnóstico.
+  </h1>
+
+  <!-- RETRATO -->
+  <div class="diag-block fade-in-up delay-1">
+    <div class="diag-label">Seu retrato</div>
+    <div class="diag-text" id="diagRetrato"></div>
+  </div>
+
+  <!-- VERDADE -->
+  <div class="diag-block fade-in-up delay-2">
+    <div class="diag-label">A verdade</div>
+    <div class="diag-text">
+      Isso não é falta de disciplina. <strong>Disciplina não vem antes. Disciplina vem depois da clareza.</strong> Quando você não consegue ver que está avançando, seu cérebro desliga a motivação. Não é fraqueza. É neurociência.
+    </div>
+  </div>
+
+  <!-- FUTURO -->
+  <div class="diag-block fade-in-up delay-3">
+    <div class="diag-label">O que você quer pra sua vida</div>
+    <div class="diag-text" id="diagFuturo"></div>
+  </div>
+
+  <!-- FRASE ÂNCORA -->
+  <div class="anchor-phrase fade-in-up delay-4">
+    <h2>6 meses de foco absoluto arruma toda a bagunça dos últimos 5 anos.</h2>
+  </div>
+
+  <!-- VIDEO -->
+  <div class="video-section fade-in-up delay-5">
+    <div class="video-placeholder">
+      <div class="video-placeholder-icon">▶</div>
+      <div class="video-placeholder-text">Vídeo do app aqui</div>
+    </div>
+  </div>
+
+  <!-- PRODUCT -->
+  <div class="product-section fade-in-up delay-5">
+    <h3>O Life Metrics não é um app de hábitos.</h3>
+    <div class="product-desc">
+      É um sistema de controle da sua vida. Você coloca seus objetivos, seus hábitos, suas metas. Registra seu dia em 5 minutos. E o sistema te mostra, com dados reais, que você está evoluindo. Com inteligência artificial que analisa seus padrões e te diz onde focar.
+    </div>
+  </div>
+
+  <!-- PRICE ANCHOR -->
+  <div class="price-anchor fade-in-up delay-6" id="priceAnchor">
+    <p>Você disse que pagaria <strong id="priceAnchorVal">entre R$100 e R$200</strong> por mês.<br>O Life Metrics custa <strong>R$27,90/mês</strong>. Ou <strong>R$19,30/mês</strong> no trimestral.</p>
+  </div>
+
+  <!-- PRICING -->
+  <div class="pricing-cards fade-in-up delay-7">
+    <div class="price-card">
+      <div class="price-plan-label">Mensal</div>
+      <div class="price-value">R$27,90</div>
+      <div class="price-period">a cada mês</div>
+      <ul class="price-features">
+        <li>Acesso completo ao sistema</li>
+        <li>Hábitos e metas ilimitados</li>
+        <li>Dashboard de métricas</li>
+        <li>Roda da Vida</li>
+        <li>Análise e direcionamento com IA</li>
+      </ul>
+      <a href="https://pay.kiwify.com.br/f3kkRmk" class="btn-buy btn-buy-outline">Quero o mensal</a>
+    </div>
+    <div class="price-card featured">
+      <div class="price-badge">Melhor valor</div>
+      <div class="price-plan-label">Trimestral</div>
+      <div class="price-value">R$57,90</div>
+      <div class="price-period">a cada 3 meses</div>
+      <ul class="price-features">
+        <li>Tudo do plano mensal</li>
+        <li>Economia de 31%</li>
+        <li>Acesso a novas funções primeiro</li>
+        <li>Suporte prioritário</li>
+      </ul>
+      <a href="https://pay.kiwify.com.br/bOhDHAB" class="btn-buy btn-buy-lime">Quero o trimestral</a>
+    </div>
+  </div>
+
+  <!-- GUARANTEE -->
+  <div class="guarantee fade-in-up delay-7">
+    <div class="guarantee-icon">🛡</div>
+    <h4>7 dias de garantia incondicional</h4>
+    <p>Testa por uma semana inteira. Se não for pra você, devolvemos 100% do valor. Sem perguntas.</p>
+  </div>
+
+  <!-- FINAL CTA -->
+  <div class="final-cta-block fade-in-up delay-8">
+    <a href="https://pay.kiwify.com.br/bOhDHAB">Quero começar meus 6 meses agora</a>
+    <p class="final-cta-note">Acesso imediato · 7 dias de garantia · Cancele quando quiser</p>
+  </div>
+
+  <div class="footer-quiz">© 2026 Life Metrics · Seu progresso, visível.</div>
+</div>
+
+<script>
+// ══ STATE ══
+const answers = {};
+let currentQ = 0;
+const totalQuestions = 15;
+
+// ══ SUPABASE CONFIG ══
+const SUPABASE_URL = 'https://qyfeibesqtwpmeepcksn.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5ZmVpYmVzcXR3cG1lZXBja3NuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ5MTMyNjAsImV4cCI6MjA2MDQ4OTI2MH0.SHj5GMHQWXR-xS9bx2qPFYDJCReAs4WDfN7k2XCHoW8';
+
+// ══ PROGRESS ══
+function updateProgress() {
+  const pct = (currentQ / totalQuestions) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+}
+
+// ══ START ══
+function startQuiz() {
+  document.getElementById('introScreen').style.display = 'none';
+  currentQ = 1;
+  showQuestion(1);
+  updateProgress();
+}
+
+// ══ SHOW/HIDE ══
+function showQuestion(n) {
+  document.querySelectorAll('.question-screen').forEach(s => {
+    s.classList.remove('active');
+    s.style.display = 'none';
+  });
+  const el = document.getElementById('q' + n);
+  if (el) {
+    el.style.display = 'block';
+    // Re-trigger animation
+    el.classList.remove('active');
+    void el.offsetWidth;
+    el.classList.add('active');
+  }
+  currentQ = n;
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ══ NAVIGATION ══
+function nextQ(n) {
+  showQuestion(n);
+}
+
+function prevQ(n) {
+  showQuestion(n);
+}
+
+// ══ OPTION CLICKS ══
+document.querySelectorAll('.options').forEach(group => {
+  const type = group.dataset.type;
+  const qNum = group.dataset.q;
+
+  group.querySelectorAll('.option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      if (type === 'single') {
+        group.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        answers[qNum] = opt.dataset.val;
+      } else {
+        opt.classList.toggle('selected');
+        const selected = group.querySelectorAll('.option.selected');
+        answers[qNum] = Array.from(selected).map(o => o.dataset.val);
+      }
+
+      // Enable next button
+      const wrap = group.closest('.question-screen');
+      const btn = wrap.querySelector('.btn-next');
+      if (type === 'single') {
+        btn.disabled = false;
+      } else {
+        btn.disabled = group.querySelectorAll('.option.selected').length === 0;
+      }
+    });
+  });
+});
+
+// ══ TEXT VALIDATION ══
+function validateText(qNum) {
+  const input = document.getElementById('q' + qNum + 'input');
+  const btn = document.getElementById('q' + qNum + 'btn') || input.closest('.question-screen').querySelector('.btn-next');
+  const val = input.value.trim();
+  answers[qNum] = val;
+  btn.disabled = val.length < 2;
+}
+
+function validateEmail() {
+  const input = document.getElementById('q15input');
+  const btn = document.getElementById('q15btn');
+  const val = input.value.trim();
+  answers[15] = val;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  btn.disabled = !emailRegex.test(val);
+}
+
+// ══ SUBMIT ══
+async function submitQuiz() {
+  // Hide quiz, show loading
+  document.querySelectorAll('.question-screen').forEach(s => {
+    s.classList.remove('active');
+    s.style.display = 'none';
+  });
+
+  const loading = document.getElementById('loadingScreen');
+  loading.classList.add('active');
+  loading.style.display = 'flex';
+  updateProgress();
+
+  const loadingSub = document.getElementById('loadingSub');
+  const messages = [
+    'Analisando suas respostas',
+    'Identificando padrões',
+    'Cruzando dados',
+    'Montando seu diagnóstico personalizado'
+  ];
+
+  let msgIdx = 0;
+  const msgInterval = setInterval(() => {
+    msgIdx++;
+    if (msgIdx < messages.length) {
+      loadingSub.style.opacity = '0';
+      setTimeout(() => {
+        loadingSub.textContent = messages[msgIdx];
+        loadingSub.style.opacity = '1';
+      }, 300);
+    }
+  }, 1200);
+
+  // Save to Supabase
+  try {
+    const payload = {
+      name: answers[14] || '',
+      email: answers[15] || '',
+      objetivo: answers[1] || '',
+      mudanca_6_meses: answers[2] || '',
+      sabe_mas_nao_mantem: answers[3] || '',
+      tempo_tentando: answers[4] || '',
+      vezes_recomecou: answers[5] || '',
+      quando_desiste: JSON.stringify(answers[6] || []),
+      perto_ou_longe: answers[7] || '',
+      sem_mudanca_6m: answers[8] || '',
+      foco_6m_onde_estaria: answers[9] || '',
+      disciplina_ou_clareza: answers[10] || '',
+      futuro_6m: JSON.stringify(answers[11] || []),
+      disposta_5min: answers[12] || '',
+      valor_mensal: answers[13] || '',
+    };
+
+    await fetch(SUPABASE_URL + '/rest/v1/quiz_leads', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(payload)
+    });
+  } catch (e) {
+    console.log('Supabase save error (non-blocking):', e);
+  }
+
+  // Wait for loading animation
+  setTimeout(() => {
+    clearInterval(msgInterval);
+    loading.classList.remove('active');
+    loading.style.display = 'none';
+    document.getElementById('quizContainer').style.display = 'none';
+    document.getElementById('progressBar').style.width = '100%';
+    showResult();
+  }, 5000);
+}
+
+// ══ RESULT ══
+function showResult() {
+  const page = document.getElementById('resultPage');
+  page.classList.add('active');
+  window.scrollTo({ top: 0 });
+
+  // Name
+  const name = answers[14] || 'Você';
+  document.getElementById('resultName').textContent = name;
+
+  // Retrato
+  const objetivo = answers[1] || 'alcançar seus objetivos';
+  const tempo = answers[4] || 'um tempo';
+  const vezes = answers[5] || 'algumas vezes';
+  const desiste = answers[6] || [];
+  const mudanca = answers[2] || '';
+
+  let desisteTxt = '';
+  if (Array.isArray(desiste) && desiste.length > 0) {
+    const cleaned = desiste.map(d => d.toLowerCase().replace(/^sinto /, '').replace(/^penso /, 'pensa ').replace(/^paro /, 'para ').replace(/^fico /, 'fica ').replace(/^aceito /, 'aceita '));
+    if (cleaned.length === 1) {
+      desisteTxt = cleaned[0];
+    } else {
+      desisteTxt = cleaned.slice(0, -1).join(', ') + ' e ' + cleaned[cleaned.length - 1];
+    }
+  }
+
+  let retratoHTML = `Você quer <strong>${objetivo.toLowerCase()}</strong>. Faz <strong>${tempo.toLowerCase()}</strong> que tenta mudar isso. Já recomeçou <strong>${vezes.toLowerCase()}</strong> nos últimos 12 meses.`;
+
+  if (desisteTxt) {
+    retratoHTML += ` E quando desiste, ${desisteTxt}.`;
+  }
+
+  if (mudanca) {
+    retratoHTML += `<div class="diag-quote">"${mudanca}"</div>`;
+  }
+
+  document.getElementById('diagRetrato').innerHTML = retratoHTML;
+
+  // Futuro
+  const futuro = answers[11] || [];
+  let futuroHTML = 'Você disse que em 6 meses de foco: ';
+  if (Array.isArray(futuro) && futuro.length > 0) {
+    const items = futuro.map(f => `<strong>${f.toLowerCase()}</strong>`);
+    futuroHTML += items.join(', ') + '.';
+  }
+  futuroHTML += '<br><br>Você sabe onde quer chegar. Você sabe o que precisa fazer. O que falta é um sistema que te mantenha no caminho e te prove, todo dia, que você está mais perto.';
+  document.getElementById('diagFuturo').innerHTML = futuroHTML;
+
+  // Price anchor
+  const priceVal = answers[13] || 'entre R$100 e R$200';
+  document.getElementById('priceAnchorVal').textContent = priceVal.toLowerCase();
+}
+</script>
+
+</body>
+</html>
